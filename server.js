@@ -27,7 +27,7 @@ http.createServer((request,response)=>{
     if(err){
       throw err;
     }
-  response.writeHead(200,{'content-type' : 'text/plain'});
+  response.writeHead(200,{'content-type' : 'text/html'});
   response.write(data);
   response.end();
 });
