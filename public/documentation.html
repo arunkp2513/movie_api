@@ -5,20 +5,83 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>My_Flix_App</title>
-
+</head>
 
 
 <body>
   <header>
     <h1>
       <p> Welcome to myFlix app</p>
-    </h1>
-
-    <h2>
-      <p> This Web application will provide users with access to information about different movies, directors, and genres.</p>
-      <p> Users will be able to sign up, update their personal information, and create a list of their favorite movies. </p>
-
-    </h2>
   </header>
+  <main>
+
+    </h1>
+    <p> This Web application will provide users with access to information about different movies, directors, and genres.</p>
+    <p> Users will be able to sign up, update their personal information, and create a list of their favorite movies. </p>
+    <div>
+      <h4> List of URL end points</h4>
+      <ul>
+        <li>READ(GET) : '/movies' =Returns complete list of the movies </li>
+        <li>READ(GET) : '/movies/:title' =Returns a movie by the movie name </li>
+        <li>READ(GET) : '/movies/genre/:genreName'=Returns movie by genre name </li>
+        <li>READ(GET) : '/movies/directors/:directorName' = Returns movie by director name </li>
+        <li>CREATE(POST): '/users'= New user registration</li>
+        <li>CREATE(POST): '/users/:id/:movieTitle' = Add movie to favorite movies </li>
+        <li> DELETE: '/users/:id/:movieTitle' = Delete movie in user's favorite movies</li>
+        <li> DELETE: '/users/:id' = Delete user by id</li>
+      </ul>
+      <table>
+        <tr>
+          <th>URL end point</th>
+          <th> Query Parameters</th>
+        </tr>
+        <tr>
+          <td>/movies/:title</td>
+          <td> tilte</td>
+        </tr>
+        <tr>
+          <td>/movies/genre/:genreName</td>
+          <td> genreName</td>
+        </tr>
+        <tr>
+          <td>/movies/directors/:directorName</td>
+          <td> directorName</td>
+        </tr>
+        <tr>
+          <td>'/users/:id/:movieTitle</td>
+          <td> id , movieTitle</td>
+        </tr>
+        <tr>
+          <td>/users/:id</td>
+          <td> id </td>
+        </tr>
+      </table><br>
+
+      <h4> Format of Data</h4>
+      <table>
+        <tr>
+          <th>type</td>
+          <th>Data</th>
+        </tr>
+        <tr>
+          <td>Request
+          <td>
+            JSON - {
+            "Title": "aaa",
+            "Description": "in the end it doesnt even matter",
+            "Genre": {
+            "Name": "Drama",
+            "Description": "narrative fiction"
+            },
+            "Director": {
+            "Name": "Rajamouli"
+            } </td>
+        <tr>
+        <tr>
+          <td> Response</td>
+          <td>JSON</td>
+      </table>
+  </main>
+</body>
 
 </html>
