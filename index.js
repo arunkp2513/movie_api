@@ -46,7 +46,7 @@ let movies=[
 ];
 app.use(morgan('combined', {stream: accessLogStream}));
 app.use(bodyParser.json());
-app.use(express.static('public)'));
+app.use(express.static('public'));
 
 app.get('/', (req, res) => {
   res.send('Welcome to myFlix app!');
@@ -149,8 +149,10 @@ app.get('/movies/directors/:directorName', (req,res)=>{
     res.status(400).send('no such director');
   }
 });
-
-
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Something broke!");
+});
 
 app.listen(8080, () => {
   console.log('Your app is listening on port 8080.');
