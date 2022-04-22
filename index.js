@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 const Models = require('./models.js');
-
+const { check, validationResult } = require('express-validator');
 const Movies = Models.Movie;
 const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
+const bcrypt = require('bcrypt');
 mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 const express = require('express');
 const app = express();
@@ -17,10 +18,12 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {
   flags: 'a'
 });
 
+const cors = require('cors');
+app.use(cors());
+let auth = require('./auth')(app);
 app.use(morgan('combined', {stream: accessLogStream}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
-let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
 app.use(express.static('public'));
@@ -54,7 +57,17 @@ app.get('/users' , passport.authenticate('jwt' , {session: false}) , (req,res)=>
 });
 
 // CREATE - new user registration
-app.post('/users',  (req,res)=>{
+app.post('/users', [
+    check('Username', 'Username is required').isLength({min: 5}),
+    check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail()
+  ], (req, res) => {
+   let errors = validationResult(req);
+   if(!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+   }
+  let hashedPassword = Users.hashPassword(req.body.Password);
   //checking if the user already exists
   Users.findOne({Username:  req.body.Username})
   .then((user)=>{
@@ -63,10 +76,11 @@ app.post('/users',  (req,res)=>{
     }else{
       Users.create({
         Username: req.body.Username,
-        Password: req.body.Password,
+        Password: hashedPassword,
         Email: req.body.Email,
         Birthday: req.body.Birthday
       })
+
       .then((user)=>{res.status(201).json(user)})
       .catch((err)=>{
         console.error(err);
@@ -93,7 +107,16 @@ app.get('/users/:Username', passport.authenticate('jwt' , {session: false}) , (r
 });
 
 //UPDATE a user's info by Username
-app.put('/users/:Username', passport.authenticate('jwt' , {session: false}) ,  (res,req) =>{
+app.put('/users/:Username', passport.authenticate('jwt' , {session: false}) ,  [
+    check('Username', 'Username is required').isLength({min: 5}),
+    check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail()
+  ], (req, res) => {
+    let errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
   Users.findOne({ Username: req.params.Username},{ $set:
     {
       Username : req.body.Username,

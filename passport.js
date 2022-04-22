@@ -25,6 +25,11 @@ const passport = require('passport'),
         return callback(null, false, {message: 'Incorrect username or password.'});
       }
 
+      if(!user.ValidatePassword(password)) {
+        console.log('inccorect password');
+        return callback(null, false, {message: 'Inccorect password'});
+      }
+
       console.log('finished');
       return callback(null, user);
     });
