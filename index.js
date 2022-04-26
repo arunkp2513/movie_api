@@ -30,7 +30,7 @@ require('./passport');
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-  res.send('Welcome to myFlix app!');
+  res.send('Welcome to myFlix app for movies!');
 });
 
 //Return all the movie
