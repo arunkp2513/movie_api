@@ -6,7 +6,8 @@ const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
 const bcrypt = require('bcrypt');
-mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
+//mongoose.connect('mongodb://localhost:27017/ArunsDB', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 const express = require('express');
 const app = express();
 morgan = require('morgan');
@@ -240,7 +241,6 @@ app.use((err, req, res, next) => {
  console.error(err.stack);
  res.status(500).send('Something broke!');
 });
-
 
 const port = process.env.PORT || 8080;
 app.listen(port, '0.0.0.0',() => {
