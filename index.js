@@ -7,7 +7,7 @@ const Genres = Models.Genre;
 const Directors = Models.Director;
 const bcrypt = require('bcrypt');
 //mongoose.connect('mongodb://localhost:27017/ArunsDB', { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 const express = require('express');
 const app = express();
 morgan = require('morgan');
