@@ -15,7 +15,7 @@ fs = require('fs');
 path = require('path');
 bodyParser = require('body-parser');
 uuid = require('uuid');
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'),  {
   flags: 'a'
 });
 
