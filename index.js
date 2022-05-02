@@ -6,8 +6,13 @@ const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
 const bcrypt = require('bcrypt');
+
+const dotenv = require("dotenv");  //require dotenv package
+dotenv.config({ path: "./config.env" }); //import config.env file
+const port = process.env.PORT || 8080;
+
 //mongoose.connect('mongodb://localhost:27017/ArunsDB', { useNewUrlParser: true, useUnifiedTopology: true  });
-mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 const express = require('express');
 const app = express();
 morgan = require('morgan');
@@ -127,7 +132,7 @@ app.put('/users/:Username', passport.authenticate('jwt' , {session: false}) ,  [
     }
   },
   { new : true} , // This makes sure that the updated document is returned
-  (error , UpdatedUser) => {
+  (error , updatedUser) => {
     if(error) {
       console.error(err);
       res.status(500).send ('Error ; ' + err);
@@ -242,7 +247,7 @@ app.use((err, req, res, next) => {
  res.status(500).send('Something broke!');
 });
 
-const port = process.env.PORT || 8080;
+
 app.listen(port, '0.0.0.0',() => {
  console.log('Listening on Port ' + port);
 });
