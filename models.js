@@ -30,7 +30,7 @@ userSchema.statics.hashPassword =(password) => {
 };
 
 userSchema.methods.validatePassword = function(password) {
-  return bcrupt.comapreSync(password, this.password);
+  return bcrypt.comapreSync(password, this.password);
 };
 
 
