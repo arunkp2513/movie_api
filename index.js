@@ -28,10 +28,10 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {
 
 const cors = require('cors');
 app.use(cors());
-let auth = require('./auth')(app);
 app.use(morgan('combined', { stream: accessLogStream }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
 app.use(express.static('public'));
