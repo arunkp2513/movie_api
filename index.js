@@ -16,6 +16,7 @@ mongoose.connect(process.env.CONNECTION_URI, {
   useUnifiedTopology: true,
 });
 const express = require('express');
+const cors = require('cors');
 const app = express();
 morgan = require('morgan');
 fs = require('fs');
@@ -26,10 +27,9 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {
   flags: 'a',
 });
 
-const cors = require('cors');
-app.use(cors());
 app.use(morgan('combined', { stream: accessLogStream }));
 app.use(bodyParser.json());
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 let auth = require('./auth')(app);
 const passport = require('passport');
