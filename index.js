@@ -16,10 +16,9 @@ mongoose.connect(process.env.CONNECTION_URI, {
   useUnifiedTopology: true,
 });
 const express = require('express');
-const cors = require('cors');
+
 morgan = require('morgan');
-const app = express();
-app.use(cors());
+
 fs = require('fs');
 path = require('path');
 bodyParser = require('body-parser');
@@ -32,6 +31,8 @@ app.use(morgan('combined', { stream: accessLogStream }));
 app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
+const cors = require('cors');
+const app = express();
 let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
