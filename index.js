@@ -20,6 +20,7 @@ const cors = require('cors');
 
 morgan = require('morgan');
 const app = express();
+app.use(cors());
 fs = require('fs');
 path = require('path');
 bodyParser = require('body-parser');
@@ -30,7 +31,7 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {
 
 app.use(morgan('combined', { stream: accessLogStream }));
 app.use(bodyParser.json());
-app.use(cors());
+
 app.use(bodyParser.urlencoded({ extended: true }));
 let auth = require('./auth')(app);
 const passport = require('passport');
