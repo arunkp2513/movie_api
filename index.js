@@ -17,8 +17,9 @@ mongoose.connect(process.env.CONNECTION_URI, {
 });
 const express = require('express');
 const cors = require('cors');
-const app = express();
+
 morgan = require('morgan');
+const app = express();
 fs = require('fs');
 path = require('path');
 bodyParser = require('body-parser');
