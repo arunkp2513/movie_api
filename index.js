@@ -16,6 +16,7 @@ mongoose.connect(process.env.CONNECTION_URI, {
   useUnifiedTopology: true,
 });
 const express = require('express');
+const app = express();
 
 morgan = require('morgan');
 
@@ -32,7 +33,8 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 const cors = require('cors');
-const app = express();
+app.use(cors());
+
 let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
