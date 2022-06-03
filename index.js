@@ -59,10 +59,6 @@ const passport = require('passport');
 require('./passport');
 app.use(express.static('public'));
 
-app.get('/', (req, res) => {
-  res.send('Welcome to myFlix app for movies!');
-});
-
 //Return all the movies
 app.get(
   '/movies',
@@ -78,7 +74,9 @@ app.get(
       });
   }
 );
-
+app.get('/', (req, res) => {
+  res.send('Welcome to myFlix app for movies!');
+});
 //GET all users
 app.get(
   '/users',
