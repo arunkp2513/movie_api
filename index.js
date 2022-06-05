@@ -38,6 +38,8 @@ let allowedOrigins = [
   'https://myflix2513.herokuapp.com',
 ];
 let auth = require('./auth')(app);
+const passport = require('passport');
+require('./passport');
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -54,8 +56,6 @@ app.use(
   })
 );
 
-const passport = require('passport');
-require('./passport');
 app.use(express.static('public'));
 app.get('/', (req, res) => {
   res.send('Welcome to myFlix app for movies!');
