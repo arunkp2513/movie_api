@@ -36,6 +36,7 @@ const cors = require('cors');
 let allowedOrigins = [
   'http://localhost:1234',
   'https://myflix2513.herokuapp.com',
+  'http://localhost:4200',
 ];
 
 app.use(
