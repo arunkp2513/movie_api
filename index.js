@@ -95,7 +95,7 @@ app.get(
   }
 );
 
-// CREATE - new user registration
+// CREATE - new user registrations
 app.post(
   '/users',
   [
