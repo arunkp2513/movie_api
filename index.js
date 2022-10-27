@@ -7,7 +7,7 @@ const Genres = Models.Genre;
 const Directors = Models.Director;
 const bcrypt = require('bcrypt');
 
-const dotenv = require('dotenv'); //require dotenv package
+const dotenv = require('dotenv'); //require dotenv packages
 dotenv.config({ path: './config.env' }); //import config.env file
 const port = process.env.PORT || 8080;
 
